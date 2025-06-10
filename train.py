@@ -73,6 +73,9 @@ def main():
         sigma=0.1 * np.ones(n_actions)
     )
     
+    # Set target entropy to -|A| (dim of action space)
+    target_entropy = -float(n_actions)
+    
     # Create the SAC agent with custom parameters optimized for soft bodies
     model = SAC(
         "MlpPolicy",
@@ -89,7 +92,7 @@ def main():
         action_noise=action_noise,
         ent_coef="auto",
         target_update_interval=1,
-        target_entropy=None,
+        target_entropy=target_entropy,  # Set target entropy
         use_sde=False,
         sde_sample_freq=-1,
         use_sde_at_warmup=False,

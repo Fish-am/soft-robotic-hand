@@ -80,11 +80,23 @@ class SoftRoboticHandEnv(gym.Env):
             dtype=np.float32
         )
         
-        # Observations: current pressures, finger positions, velocities, deformations, target position
+        # Observations: 
+        # - pressures (num_fingers)
+        # - finger positions (num_fingers * 3)
+        # - finger velocities (num_fingers * 3)
+        # - deformations (num_fingers * 3)
+        # - target position (3)
+        obs_dim = (
+            self.num_fingers +      # pressures
+            self.num_fingers * 3 +  # positions
+            self.num_fingers * 3 +  # velocities
+            self.num_fingers * 3 +  # deformations
+            3                       # target position
+        )
         self.observation_space = spaces.Box(
             low=-np.inf,
             high=np.inf,
-            shape=(self.num_fingers * 6 + 3,),  # pressures + positions + velocities + deformations + target
+            shape=(obs_dim,),
             dtype=np.float32
         )
         

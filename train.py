@@ -62,7 +62,7 @@ def main():
     os.makedirs("logs", exist_ok=True)
 
     # Create environment with domain randomization
-    env = SoftRoboticHandEnv(render_mode="human", task="fingertip_alignment")
+    env = SoftRoboticHandEnv(render_mode="direct", task="fingertip_alignment")
     env = MaterialDomainRandomizationWrapper(env)
     
     # Add action noise for exploration

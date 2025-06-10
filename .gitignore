@@ -23,7 +23,7 @@ wheels/
 # Virtual Environment
 venv/
 ENV/
-env/
+/env/  # Only ignore env directory in root, not subdirectories
 
 # Logs and databases
 *.log

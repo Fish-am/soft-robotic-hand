@@ -6,6 +6,7 @@ from stable_baselines3.common.callbacks import CheckpointCallback
 from stable_baselines3.common.noise import NormalActionNoise
 from env.hand_env import SoftRoboticHandEnv
 import pybullet as p
+import torch.nn as nn
 
 class MaterialDomainRandomizationWrapper(gym.Wrapper):
     def __init__(self, env):
@@ -97,7 +98,7 @@ def main():
                 "pi": [256, 256, 128],  # Policy network
                 "qf": [256, 256, 128]   # Q-function network
             },
-            "activation_fn": "relu",
+            "activation_fn": nn.ReLU,
             "log_std_init": -3.0  # Lower initial exploration
         },
         tensorboard_log="./logs/"

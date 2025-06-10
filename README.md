@@ -7,7 +7,7 @@ This repository contains code for training a soft robotic hand using reinforceme
 1. Create a new Colab notebook
 2. Clone this repository:
 ```python
-!git clone https://github.com/YOUR_USERNAME/soft-robotic-hand.git
+!git clone https://github.com/Fish-am/soft-robotic-hand.git
 %cd soft-robotic-hand
 !pip install -r requirements.txt
 ```

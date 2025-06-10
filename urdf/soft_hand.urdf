@@ -1,0 +1,410 @@
+<?xml version="1.0"?>
+<robot name="soft_hand">
+    <!-- Materials -->
+    <material name="soft_blue">
+        <color rgba="0 0 0.8 0.6"/>
+    </material>
+    <material name="soft_black">
+        <color rgba="0 0 0 0.7"/>
+    </material>
+    <material name="soft_rubber">
+        <color rgba="0.3 0.3 0.3 0.6"/>
+    </material>
+
+    <!-- Base Link -->
+    <link name="palm_link">
+        <visual>
+            <geometry>
+                <box size="0.08 0.12 0.02"/>
+            </geometry>
+            <material name="soft_blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.08 0.12 0.02"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.3"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <!-- Thumb -->
+    <joint name="thumb_base_joint" type="continuous">
+        <parent link="palm_link"/>
+        <child link="thumb_base_link"/>
+        <origin xyz="0.04 0.01 0" rpy="0.3 -0.5 0.7"/>
+        <axis xyz="0 0 1"/>
+        <dynamics damping="5.0" friction="2.0"/>
+        <limit effort="2.0" velocity="1.0"/>
+    </joint>
+
+    <link name="thumb_base_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.012" length="0.04"/>
+            </geometry>
+            <material name="soft_rubber"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.012" length="0.04"/>
+            </geometry>
+            <contact>
+                <lateral_friction value="1.0"/>
+                <rolling_friction value="0.1"/>
+                <spinning_friction value="0.1"/>
+                <stiffness value="500.0"/>
+                <damping value="50.0"/>
+            </contact>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <!-- Thumb distal joint -->
+    <joint name="thumb_distal_joint" type="continuous">
+        <parent link="thumb_base_link"/>
+        <child link="thumb_distal_link"/>
+        <origin xyz="0 0 0.04" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <dynamics damping="5.0" friction="2.0"/>
+        <limit effort="2.0" velocity="1.0"/>
+    </joint>
+
+    <link name="thumb_distal_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.03"/>
+            </geometry>
+            <material name="soft_blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.01" length="0.03"/>
+            </geometry>
+            <contact>
+                <lateral_friction value="1.0"/>
+                <rolling_friction value="0.1"/>
+                <spinning_friction value="0.1"/>
+                <stiffness value="500.0"/>
+                <damping value="50.0"/>
+            </contact>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <!-- Thumb tip with grip pad -->
+    <joint name="thumb_tip_joint" type="fixed">
+        <parent link="thumb_distal_link"/>
+        <child link="thumb_tip_link"/>
+        <origin xyz="0 0 0.015" rpy="0 0 0"/>
+    </joint>
+
+    <link name="thumb_tip_link">
+        <visual>
+            <geometry>
+                <sphere radius="0.008"/>
+            </geometry>
+            <material name="soft_rubber"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.008"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.01"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <!-- Index Finger -->
+    <joint name="index_base_joint" type="continuous">
+        <parent link="palm_link"/>
+        <child link="index_base_link"/>
+        <origin xyz="0.04 0.03 0" rpy="0 -0.2 0"/>
+        <axis xyz="0 0 1"/>
+        <dynamics damping="5.0" friction="2.0"/>
+        <limit effort="2.0" velocity="1.0"/>
+    </joint>
+
+    <link name="index_base_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.04"/>
+            </geometry>
+            <material name="soft_rubber"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.01" length="0.04"/>
+            </geometry>
+            <contact>
+                <lateral_friction value="1.0"/>
+                <rolling_friction value="0.1"/>
+                <spinning_friction value="0.1"/>
+                <stiffness value="500.0"/>
+                <damping value="50.0"/>
+            </contact>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <joint name="index_distal_joint" type="continuous">
+        <parent link="index_base_link"/>
+        <child link="index_distal_link"/>
+        <origin xyz="0 0 0.04" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <dynamics damping="5.0" friction="2.0"/>
+        <limit effort="2.0" velocity="1.0"/>
+    </joint>
+
+    <link name="index_distal_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.008" length="0.03"/>
+            </geometry>
+            <material name="soft_blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.008" length="0.03"/>
+            </geometry>
+            <contact>
+                <lateral_friction value="1.0"/>
+                <rolling_friction value="0.1"/>
+                <spinning_friction value="0.1"/>
+                <stiffness value="500.0"/>
+                <damping value="50.0"/>
+            </contact>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <joint name="index_tip_joint" type="fixed">
+        <parent link="index_distal_link"/>
+        <child link="index_tip_link"/>
+        <origin xyz="0 0 0.015" rpy="0 0 0"/>
+    </joint>
+
+    <link name="index_tip_link">
+        <visual>
+            <geometry>
+                <sphere radius="0.008"/>
+            </geometry>
+            <material name="soft_rubber"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.008"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.01"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <!-- Middle Finger -->
+    <joint name="middle_base_joint" type="continuous">
+        <parent link="palm_link"/>
+        <child link="middle_base_link"/>
+        <origin xyz="0.04 0.0 0" rpy="0 -0.2 0"/>
+        <axis xyz="0 0 1"/>
+        <dynamics damping="5.0" friction="2.0"/>
+        <limit effort="2.0" velocity="1.0"/>
+    </joint>
+
+    <link name="middle_base_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.04"/>
+            </geometry>
+            <material name="soft_rubber"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.01" length="0.04"/>
+            </geometry>
+            <contact>
+                <lateral_friction value="1.0"/>
+                <rolling_friction value="0.1"/>
+                <spinning_friction value="0.1"/>
+                <stiffness value="500.0"/>
+                <damping value="50.0"/>
+            </contact>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <joint name="middle_distal_joint" type="continuous">
+        <parent link="middle_base_link"/>
+        <child link="middle_distal_link"/>
+        <origin xyz="0 0 0.04" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <dynamics damping="5.0" friction="2.0"/>
+        <limit effort="2.0" velocity="1.0"/>
+    </joint>
+
+    <link name="middle_distal_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.008" length="0.03"/>
+            </geometry>
+            <material name="soft_blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.008" length="0.03"/>
+            </geometry>
+            <contact>
+                <lateral_friction value="1.0"/>
+                <rolling_friction value="0.1"/>
+                <spinning_friction value="0.1"/>
+                <stiffness value="500.0"/>
+                <damping value="50.0"/>
+            </contact>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <joint name="middle_tip_joint" type="fixed">
+        <parent link="middle_distal_link"/>
+        <child link="middle_tip_link"/>
+        <origin xyz="0 0 0.015" rpy="0 0 0"/>
+    </joint>
+
+    <link name="middle_tip_link">
+        <visual>
+            <geometry>
+                <sphere radius="0.008"/>
+            </geometry>
+            <material name="soft_rubber"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.008"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.01"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <!-- Ring Finger -->
+    <joint name="ring_base_joint" type="continuous">
+        <parent link="palm_link"/>
+        <child link="ring_base_link"/>
+        <origin xyz="0.04 -0.02 0" rpy="0 -0.2 0"/>
+        <axis xyz="0 0 1"/>
+        <dynamics damping="5.0" friction="2.0"/>
+        <limit effort="2.0" velocity="1.0"/>
+    </joint>
+
+    <link name="ring_base_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.04"/>
+            </geometry>
+            <material name="soft_rubber"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.01" length="0.04"/>
+            </geometry>
+            <contact>
+                <lateral_friction value="1.0"/>
+                <rolling_friction value="0.1"/>
+                <spinning_friction value="0.1"/>
+                <stiffness value="500.0"/>
+                <damping value="50.0"/>
+            </contact>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <!-- Little Finger -->
+    <joint name="little_base_joint" type="continuous">
+        <parent link="palm_link"/>
+        <child link="little_base_link"/>
+        <origin xyz="0.04 -0.04 0" rpy="0 -0.2 0"/>
+        <axis xyz="0 0 1"/>
+        <dynamics damping="5.0" friction="2.0"/>
+        <limit effort="2.0" velocity="1.0"/>
+    </joint>
+
+    <link name="little_base_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.04"/>
+            </geometry>
+            <material name="soft_rubber"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.01" length="0.04"/>
+            </geometry>
+            <contact>
+                <lateral_friction value="1.0"/>
+                <rolling_friction value="0.1"/>
+                <spinning_friction value="0.1"/>
+                <stiffness value="500.0"/>
+                <damping value="50.0"/>
+            </contact>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <!-- Transmission for synergy control -->
+    <transmission name="hand_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="thumb_base_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <joint name="thumb_distal_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <joint name="index_base_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <joint name="index_distal_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <joint name="middle_base_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <joint name="middle_distal_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="hand_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+</robot> 
